@@ -59,7 +59,7 @@ app.post("/payment", (req, res) => {
   // this happens when the user clicks on the link in SMS
   // const sFrom = req.params.phone;
   const sFrom = req.body.telephone;
-  oOrders[sFrom] = new ShwarmaOrder(sFrom);
+  oOrders[sFrom] = new PopUpOrder(sFrom);
   res.end(oOrders[sFrom].renderForm(req.body.title, req.body.price));
 });
 
@@ -68,7 +68,7 @@ app.post("/sms", (req, res) => {
   let sFrom = req.body.From || req.body.from;
   let sUrl = `${req.headers['x-forwarded-proto'] || req.protocol}://${req.headers['x-forwarded-host'] || req.headers.host}${req.baseUrl}`;
   if (!oOrders.hasOwnProperty(sFrom)) {
-    oOrders[sFrom] = new ShwarmaOrder(sFrom, sUrl);
+    oOrders[sFrom] = new PopUpOrder(sFrom, sUrl);
   }
   if (oOrders[sFrom].isDone()) {
     delete oOrders[sFrom];
