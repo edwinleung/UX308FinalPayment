@@ -2,59 +2,55 @@ const Order = require("./Order");
 
 const OrderState = Object.freeze({
     WELCOMING:   Symbol("welcoming"),
-    SIZE:   Symbol("size"),
-    TOPPINGS:   Symbol("toppings"),
-    DRINKS:  Symbol("drinks"),
-    PAYMENT: Symbol("payment")
+    FOOD:   Symbol("food"),
+    BOBA:  Symbol("boba")
 });
 
-module.exports = class ShwarmaOrder extends Order{
+module.exports = class PopUpOrder extends Order{
     constructor(sNumber, sUrl){
         super(sNumber, sUrl);
         this.stateCur = OrderState.WELCOMING;
-        this.sSize = "";
-        this.sToppings = "";
-        this.sDrinks = "";
-        this.sItem = "shawarama";
+        this.sFood = "";
+        this.sBoba = "";
     }
     handleInput(sInput){
         let aReturn = [];
         switch(this.stateCur){
             case OrderState.WELCOMING:
-                this.stateCur = OrderState.SIZE;
-                aReturn.push("Welcome to Richard's Shawarma.");
-                aReturn.push("What size would you like?");
+                this.stateCur = OrderState.FOOD;
+                aReturn.push("Welcome to Tastes of Asia.");
+                aReturn.push(`For a list of upcoming pop-up meals, tap here:`);
+                aReturn.push("https://edwinleung.github.io/es6-template-static/");
+                aReturn.push("Would you like FRIED CHICKEN, RAMEN BURGER, or BOTH?");
                 break;
-            case OrderState.SIZE:
-                this.stateCur = OrderState.TOPPINGS
-                this.sSize = sInput;
-                aReturn.push("What toppings would you like?");
+            case OrderState.FOOD:
+                this.stateCur = OrderState.BOBA;
+                  this.sFood = sInput;
+                  aReturn.push("Would you like BOBA with that?");
                 break;
-            case OrderState.TOPPINGS:
-                this.stateCur = OrderState.DRINKS
-                this.sToppings = sInput;
-                aReturn.push("Would you like drinks with that?");
-                break;
-            case OrderState.DRINKS:
-                this.stateCur = OrderState.PAYMENT;
-                this.nOrder = 15;
+            case OrderState.BOBA:
                 if(sInput.toLowerCase() != "no"){
-                    this.sDrinks = sInput;
+                    this.sBoba = sInput;
                 }
                 aReturn.push("Thank-you for your order of");
-                aReturn.push(`${this.sSize} ${this.sItem} with ${this.sToppings}`);
-                if(this.sDrinks){
-                    aReturn.push(this.sDrinks);
+                this.nTotal = 0;
+                if(this.sFood.toLowerCase() == "fried chicken"){
+                  aReturn.push("Spicy Korean Fried Chicken");
+                  this.nTotal += 10.00;
+                }else if(this.sFood.toLowerCase() == "ramen burger"){
+                  aReturn.push("Ramen Burger");
+                  this.nTotal += 13.00
+                }else if(this.sFood.toLowerCase() == "both"){
+                    aReturn.push("Spicy Korean Fried Chicken and Ramen Burger");
+                    this.nTotal += 23.00
+                }    
+                if(this.sBoba){
+                  aReturn.push("Xing Fu Tang Brown Sugar Boba");
+                  this.nTotal += 6.50;
                 }
-                aReturn.push(`Please pay for your order here`);
-                aReturn.push(`${this.sUrl}/payment/${this.sNumber}/`);
-                break;
-            case OrderState.PAYMENT:
-                console.log(sInput);
+                aReturn.push(`Your total comes to $${this.nTotal}`);
+                aReturn.push(`We will text you from 519-222-2222 when your order is ready or if we have questions.`)
                 this.isDone(true);
-                let d = new Date();
-                d.setMinutes(d.getMinutes() + 20);
-                aReturn.push(`Your order will be delivered at ${d.toTimeString()}`);
                 break;
         }
         return aReturn;
