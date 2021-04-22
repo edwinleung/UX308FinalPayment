@@ -29,7 +29,7 @@ module.exports = class PopUpOrder extends Order{
                 aReturn.push("Thank-you for your order of");
                 this.nOrder = 0;
                 if(this.sItem.toLowerCase() == "floam slime"){
-                  aReturn.push("DIY Floam Slime");
+                  aReturn.push("Floam Slime");
                   this.nOrder += 20.00;
                 }else if(this.sItem.toLowerCase() == "terrarium"){
                   aReturn.push("Terrarium");
@@ -76,7 +76,7 @@ module.exports = class PopUpOrder extends Order{
         <script
           src="https://www.paypal.com/sdk/js?client-id=${sClientID}"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
         </script>
-        Thank you ${this.sNumber} for your order of ${this.sItem} for ${this.nOrder}.
+        Thank you ${this.sNumber} for your order of ${this.sItem} for $${this.nOrder}.
         <div id="paypal-button-container"></div>
   
         <script>
