@@ -30,10 +30,10 @@ module.exports = class PopUpOrder extends Order{
                 this.nOrder = 0;
                 if(this.sItem.toLowerCase() == "floam slime"){
                   aReturn.push("Floam Slime");
-                  this.nOrder += 20.00;
+                  this.nOrder += 19.99;
                 }else if(this.sItem.toLowerCase() == "terrarium"){
                   aReturn.push("Terrarium");
-                  this.nOrder += 10.00
+                  this.nOrder += 11.99
                 }
               else{
                 this.stateCur = OrderState.ITEM;
