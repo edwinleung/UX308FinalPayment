@@ -3,7 +3,8 @@ const Order = require("./Order");
 const OrderState = Object.freeze({
     WELCOMING:   Symbol("welcoming"),
     FOOD:   Symbol("food"),
-    BOBA:  Symbol("boba")
+    BOBA:  Symbol("boba"),
+    PAYMENT: Symbol("payment")
 });
 
 module.exports = class PopUpOrder extends Order{
@@ -49,8 +50,15 @@ module.exports = class PopUpOrder extends Order{
                   this.nTotal += 6.50;
                 }
                 aReturn.push(`Your total comes to $${this.nTotal}`);
-                aReturn.push(`We will text you from 519-222-2222 when your order is ready or if we have questions.`)
+                aReturn.push(`Please pay for your order here`);
+                aReturn.push(`${this.sUrl}/payment/${this.sNumber}/`);
+                break;
+            case OrderState.PAYMENT:
+                console.log(sInput);
                 this.isDone(true);
+                let d = new Date();
+                d.setMinutes(d.getMinutes() + 20);
+                aReturn.push(`Your order will be delivered at ${d.toTimeString()}`);
                 break;
         }
         return aReturn;
