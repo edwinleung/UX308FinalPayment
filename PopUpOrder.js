@@ -19,9 +19,9 @@ module.exports = class PopUpOrder extends Order{
             case OrderState.WELCOMING:
                 this.stateCur = OrderState.FOOD;
                 aReturn.push("Welcome to Tastes of Asia.");
-                aReturn.push(`For a list of upcoming pop-up meals, tap here:`);
-                aReturn.push("https://edwinleung.github.io/es6-template-static/");
-                aReturn.push("Would you like FRIED CHICKEN, RAMEN BURGER, or BOTH?");
+                aReturn.push(`For a list of upcoming craft kits, tap here:`);
+                aReturn.push("https://edwinleung.github.io/UX308Final/");
+                aReturn.push("Would you like FLOAM SLIME, RAMEN BURGER, or BOTH?");
                 break;
             case OrderState.FOOD:
                 this.stateCur = OrderState.BOBA;
