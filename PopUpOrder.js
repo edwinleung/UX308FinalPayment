@@ -27,20 +27,20 @@ module.exports = class PopUpOrder extends Order{
             case OrderState.ITEM:
                   this.sItem = sInput;
                 aReturn.push("Thank-you for your order of");
-                this.nTotal = 0;
+                this.nOrder = 0;
                 if(this.sItem.toLowerCase() == "floam slime"){
                   aReturn.push("DIY Floam Slime");
-                  this.nTotal += 20.00;
+                  this.nOrder += 20.00;
                 }else if(this.sItem.toLowerCase() == "terrarium"){
                   aReturn.push("Terrarium");
-                  this.nTotal += 10.00
+                  this.nOrder += 10.00
                 }
               else{
                 this.stateCur = OrderState.ITEM;
                 aReturn.push("Please enter floam slime or terrarium");
                 break;
               }
-                aReturn.push(`Your total comes to $${this.nTotal}`);
+                aReturn.push(`Your total comes to $${this.nOrder}`);
                 aReturn.push(`Please pay for your order here`);
                 aReturn.push(`${this.sUrl}/payment/${this.sNumber}/`);
                 break;
