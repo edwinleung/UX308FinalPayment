@@ -19,7 +19,7 @@ module.exports = class PopUpOrder extends Order{
         switch(this.stateCur){
             case OrderState.WELCOMING:
                 this.stateCur = OrderState.ITEM;
-                aReturn.push("Welcome to Tastes of Asia.");
+                aReturn.push("Welcome to tablecraft.");
                 aReturn.push(`For a list of upcoming craft kits, tap here:`);
                 aReturn.push("https://edwinleung.github.io/UX308Final/");
                 aReturn.push("Would you like FLOAM SLIME or TERRARIUM?");
