@@ -2,7 +2,7 @@ const Order = require("./Order");
 
 const OrderState = Object.freeze({
     WELCOMING:   Symbol("welcoming"),
-    FOOD:   Symbol("food"),
+    ITEM:   Symbol("ITEM"),
     BOBA:  Symbol("boba"),
     PAYMENT: Symbol("payment")
 });
@@ -11,43 +11,29 @@ module.exports = class PopUpOrder extends Order{
     constructor(sNumber, sUrl){
         super(sNumber, sUrl);
         this.stateCur = OrderState.WELCOMING;
-        this.sFood = "";
+        this.sItem = "";
         this.sBoba = "";
     }
     handleInput(sInput){
         let aReturn = [];
         switch(this.stateCur){
             case OrderState.WELCOMING:
-                this.stateCur = OrderState.FOOD;
+                this.stateCur = OrderState.ITEM;
                 aReturn.push("Welcome to Tastes of Asia.");
                 aReturn.push(`For a list of upcoming craft kits, tap here:`);
                 aReturn.push("https://edwinleung.github.io/UX308Final/");
-                aReturn.push("Would you like FLOAM SLIME, RAMEN BURGER, or BOTH?");
+                aReturn.push("Would you like FLOAM SLIME or TERRARIUM?");
                 break;
-            case OrderState.FOOD:
-                this.stateCur = OrderState.BOBA;
-                  this.sFood = sInput;
-                  aReturn.push("Would you like BOBA with that?");
-                break;
-            case OrderState.BOBA:
-                if(sInput.toLowerCase() != "no"){
-                    this.sBoba = sInput;
-                }
+            case OrderState.ITEM:
+                  this.sItem = sInput;
                 aReturn.push("Thank-you for your order of");
                 this.nTotal = 0;
-                if(this.sFood.toLowerCase() == "fried chicken"){
-                  aReturn.push("Spicy Korean Fried Chicken");
-                  this.nTotal += 10.00;
-                }else if(this.sFood.toLowerCase() == "ramen burger"){
-                  aReturn.push("Ramen Burger");
-                  this.nTotal += 13.00
-                }else if(this.sFood.toLowerCase() == "both"){
-                    aReturn.push("Spicy Korean Fried Chicken and Ramen Burger");
-                    this.nTotal += 23.00
-                }    
-                if(this.sBoba){
-                  aReturn.push("Xing Fu Tang Brown Sugar Boba");
-                  this.nTotal += 6.50;
+                if(this.sItem.toLowerCase() == "floam slime"){
+                  aReturn.push("DIY Floam Slime");
+                  this.nTotal += 20.00;
+                }else if(this.sItem.toLowerCase() == "terrarium"){
+                  aReturn.push("Terrarium");
+                  this.nTotal += 10.00
                 }
                 aReturn.push(`Your total comes to $${this.nTotal}`);
                 aReturn.push(`Please pay for your order here`);
