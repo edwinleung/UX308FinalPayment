@@ -35,6 +35,11 @@ module.exports = class PopUpOrder extends Order{
                   aReturn.push("Terrarium");
                   this.nTotal += 10.00
                 }
+              else{
+                this.stateCur = OrderState.ITEM;
+                aReturn.push("Please enter floam slime or terrarium");
+                break;
+              }
                 aReturn.push(`Your total comes to $${this.nTotal}`);
                 aReturn.push(`Please pay for your order here`);
                 aReturn.push(`${this.sUrl}/payment/${this.sNumber}/`);
