@@ -40,16 +40,12 @@ module.exports = class PopUpOrder extends Order{
                 aReturn.push("Please enter floam slime or terrarium");
                 break;
               }
+              case OrderState.PAYMENT:
                 aReturn.push(`Your total comes to $${this.nOrder}`);
                 aReturn.push(`Please pay for your order here`);
                 aReturn.push(`${this.sUrl}/payment/${this.sNumber}/`);
-                break;
-            case OrderState.PAYMENT:
                 console.log(sInput);
                 this.isDone(true);
-                let d = new Date();
-                d.setMinutes(d.getMinutes() + 20);
-                aReturn.push(`Your order will be delivered at ${d.toTimeString()}`);
                 break;
         }
         return aReturn;
